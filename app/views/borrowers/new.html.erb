@@ -1,0 +1,43 @@
+<h1>Personal Info</h1>
+<%= form_with(model: @borrower, local: true) do |f| %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :Fullname %>
+      <%= f.text_field :full_name, class:'form-control', placeholder: "Full Name"%>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control", placeholder: "juan123@gmail.com" %>
+    </div>
+  </div>
+  <div class="form-row">
+  <div class="form-group col-md-9">
+    <%= f.label :Address %><br />
+    <%= f.text_field :address, class: "form-control", placeholder:"1234 Main St" , rows:"3" %>
+  </div>
+  <div class="form-group col-md-3">
+    <%= f.label :phone_number %>
+    <%= f.number_field :phone_number, class:"form-control", placeholder: "+09269974562" %>
+  </div>
+  </div>
+  <hr>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :loan_purpose %>
+      <%= f.select :loan_purpose, ['Housing Loan' , 'School Loan' , 'Gudget Loan' , 'Personal Loan','Utility Bills Loan' , 'Others'],  {include_blank: false}, class: "form-control input-sm selectpicker"%>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :price_lend %><br />
+      <%= f.number_field :price_lend, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= f.label :month_to_pay %><br />
+      <%= f.select :months_to_pay, ['3', '4', '5', '6' , '12'],  {include_blank: false} , class: "form-control" %>
+    </div>
+  </div>
+ 
+  <div class="actions">
+    <%= f.submit "Submit",class:"btn btn-primary" %>
+  </div>
+<% end %>
+

@@ -1,0 +1,28 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">full_name</th>
+      <th scope="col">address</th>
+      <th scope="col">phone_number</th>
+      <th scope="col">email</th>
+      <th scope="col">loan_purpose</th>
+      <th scope="col">price_lend</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @borrower.each do |invoice| %>
+      <tr>
+        <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th>
+        <td><%= invoice.full_name %></td>
+        <td><%= invoice.address %></td>
+        <td><%= invoice.phone_number %></td>
+        <td><%= invoice.email %></td>
+        <td><%= invoice.loan_purpose %></td>
+        <td><%= invoice.price_lend %></td>
+        <td><%= link_to 'View', borrower_path(invoice.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

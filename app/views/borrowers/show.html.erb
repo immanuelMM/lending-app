@@ -1,0 +1,786 @@
+<%# <style type="text/css">
+.a{
+   text-align: center;
+}
+</style>
+<div class="a" style="font-size:20px">
+  <span  style="left:1794px;top:298px;word-spacing:10px;font-family: ff4, Verdana, Verdana, Geneva, sans-serif;">LOAN AGREEMENT </span>
+</div>
+<div class="ff4" style="font-size:20px">
+  <span class="a" style="left:2069px;top:526px;word-spacing:-1px">I. Parties </span>
+</div>
+<div class="ff2" style="font-size:20px">
+<span class="a" style="left:272px;top:739px">This Loan Agreement entered into by and <span class="w7"></span>between: </span></div> %>
+ <%= render "contract" %>
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= image_tag wicked_pdf_asset_base64('Quickloan.png'), :size => '300x80' %>
+                  </td>
+
+                  <td>
+                    Invoice #: <b><%= @borrower.id %></b>
+                    <br>
+                    Created: <b><%= @borrower.created_at.strftime('%d/%m/%Y') %></b>
+                    <br>
+                    Time <b><%= @borrower.created_at.strftime("%I:%M%p") %></b>
+                    <br>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    <b>Principal: </b> <%= number_with_delimiter(@borrower.price_lend, :delimiter => ',') %><br>
+                    <span>1st Prin Due: </span> <%= ( @borrower.created_at + 1.month).strftime('%d/%m/%Y') %><br>
+                    <span>1st Int Due: </span> <%= ( @borrower.created_at + 1.month).strftime('%d/%m/%Y') %><br>
+                    <span>Maturity: </span> <%= ( @borrower.created_at + @borrower.months_to_pay.to_i.month).strftime('%d/%m/%Y') %><br>
+                  </td>
+
+                  <td>
+                    <b><%= @borrower.full_name %></b><br>
+                    <span><%= @borrower.loan_purpose%> - Others</span><br>
+                    <%= @borrower.address %><br>
+                    <i class="far fa-envelope"></i> <%= @borrower.email %><br>
+                    <i class="fas fa-phone"></i> <%= @borrower.phone_number %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+      
+        </table>
+        
+    </div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DATE</th>
+      <th scope="col">TOTAL DUE</th>
+      <th scope="col">INTEREST DUE</th>
+      <th scope="col">PRINCIPAL DUE</th>
+      <th scope="col">SHOULD-BE BALANCE</th>
+       <th scope="col">DATE PAY</th>
+      <%# <th scope="col">STATUS</th> %>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+          <%= number_with_delimiter(@borrower.price_lend, :delimiter => ',')%>
+          
+        </td>
+        <td></td>
+        <%if @borrower.months_to_pay == "6"%>
+      </tr>
+        <%# 1 %>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= ((@borrower.created_at + 1.month)).strftime('%d/%m/%Y') %> </td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            num =  @borrower.price_lend 
+            bal = @borrower.price_lend - @borrower.monthly_pay 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td>
+           <%# Status: <span class="<%= @invoice.status_class %>    
+           <%# "> <%= @invoice.status</span> %>
+        </td>
+      </tr>
+        <%# 2 %>
+      <tr>
+       <td><%= (@borrower.created_at + 2.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 2
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 3 %>
+       <tr>
+         <td><%= (@borrower.created_at + 3.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 3
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',') 
+        %></td>
+        <td></td>
+      </tr>
+        <%# 4 %>
+       <tr>
+        <td><%= (@borrower.created_at + 4.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 4
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 5 %>
+       <tr>
+        <td><%= (@borrower.created_at + 5.month ).strftime('%d/%m/%Y')%></td>
+          <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 5
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 6 %>
+       <tr>
+        <td><%= (@borrower.created_at + 6.month ).strftime('%d/%m/%Y')%></td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;"><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;">
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;">
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 6
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+      </tr>
+       <tr><td></td>
+        <td><%= 
+            int = @borrower.interest + @borrower.monthly_pay
+            total = int * 6
+            number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td><%=
+              total = @borrower.interest * 6
+              number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td><%=
+              total = @borrower.monthly_pay * 6
+              number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td>
+        </td>
+        <td></td>
+      </tr>
+      <% elsif @borrower.months_to_pay == "4" %>
+        <%# 1 %>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= (@borrower.created_at + 1.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend  
+            bal = @borrower.price_lend - @borrower.monthly_pay 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+      </tr>
+        <%# 2 %>
+      <tr>
+       <td><%= (@borrower.created_at + 2.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            mon = @borrower.monthly_pay * 2
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 3 %>
+       <tr>
+         <td><%= (@borrower.created_at + 3.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            mon = @borrower.monthly_pay * 3
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',') 
+        %></td>
+        <td></td>
+      </tr>
+        <%# 4 %>
+       <tr>
+        <td><%= (@borrower.created_at + 4.month ).strftime('%d/%m/%Y')%></td>
+       <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            mon = @borrower.monthly_pay* 4
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+       <tr>
+        <td>
+        </td>
+        <td><%= 
+            int = @borrower.interest + @borrower.monthly_pay
+            total = int * 4
+            number_with_delimiter(total.round(2), :delimiter => ',')
+        %>
+        </td>
+        <td>
+          <%=
+            total = @borrower.interest * 4
+            number_with_delimiter(total.round(2), :delimiter => ',')
+          %>
+        </td>
+        <td>
+         <%=
+          total = @borrower.monthly_pay * 4
+          number_with_delimiter(total.round(2), :delimiter => ',')
+         %>
+        </td>
+        <td>
+        </td>
+      </tr>
+       <% elsif @borrower.months_to_pay == "3" %>
+        <%# 1 %>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= (@borrower.created_at + 1.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend  
+            bal = @borrower.price_lend - @borrower.monthly_pay 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+      </tr>
+        <%# 2 %>
+      <tr>
+       <td><%= (@borrower.created_at + 2.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            mon = @borrower.monthly_pay * 2
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 3 %>
+       <tr>
+         <td><%= (@borrower.created_at + 3.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            mon = @borrower.monthly_pay * 3
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',') 
+        %></td>
+        <td></td>
+      </tr>
+        <tr>
+        <td>
+        </td>
+        <td><%= 
+            int = @borrower.interest + @borrower.monthly_pay
+            total = int * 3
+            number_with_delimiter(total.round(2), :delimiter => ',')
+        %>
+        </td>
+        <td>
+          <%=
+            total = @borrower.interest * 3
+            number_with_delimiter(total.round(2), :delimiter => ',')
+          %>
+        </td>
+        <td>
+         <%=
+          total = @borrower.monthly_pay * 3
+          number_with_delimiter(total.round(2), :delimiter => ',')
+         %>
+        </td>
+        <td>
+        </td>
+      </tr>
+     
+      <% elsif @borrower.months_to_pay == "12" %>
+         <%# 1 %>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= ((@borrower.created_at + 1.month)).strftime('%d/%m/%Y') %></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            num =  @borrower.price_lend 
+            bal = @borrower.price_lend - @borrower.monthly_pay 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td>
+           <%# Status: <span class="<%= @invoice.status_class %>    
+           <%# "> <%= @invoice.status</span> %>
+        </td>
+      </tr>
+        <%# 2 %>
+      <tr>
+       <td><%= (@borrower.created_at + 2.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 2
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 3 %>
+       <tr>
+         <td><%= (@borrower.created_at + 3.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 3
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',') 
+        %></td>
+        <td></td>
+      </tr>
+        <%# 4 %>
+       <tr>
+        <td><%= (@borrower.created_at + 4.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 4
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 5 %>
+       <tr>
+        <td><%= (@borrower.created_at + 5.month ).strftime('%d/%m/%Y')%></td>
+          <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 5
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+       <%# 6 %>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= (@borrower.created_at + 1.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 6
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td>
+           <%# Status: <span class="<%= @invoice.status_class %>    
+           <%# "> <%= @invoice.status</span> %>
+        </td>
+      </tr>
+        <%# 7 %>
+      <tr>
+       <td><%= (@borrower.created_at + 7.month ).strftime('%d/%m/%Y')%></td>
+        <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+            num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 7
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 8 %>
+       <tr>
+         <td><%= (@borrower.created_at + 8.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 8
+            bal = @borrower.price_lend - mon
+            number_with_delimiter(bal.round(2), :delimiter => ',') 
+        %></td>
+        <td></td>
+      </tr>
+        <%# 9 %>
+       <tr>
+        <td><%= (@borrower.created_at + 9.month ).strftime('%d/%m/%Y')%></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 9
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+      <%# 10 %>
+       <tr>
+        <td><%= (@borrower.created_at + 10.month).strftime('%d/%m/%Y') %></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 10
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+      <%# 11 %>
+       <tr>
+        <td><%= (@borrower.created_at + 11.month).strftime('%d/%m/%Y') %></td>
+         <td><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td>
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 11
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+        <td></td>
+      </tr>
+        <%# 12 %>
+       <tr>
+        <td><%= (@borrower.created_at + 12.month).strftime('%d/%m/%Y') %></td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;"><%= 
+            int = @borrower.monthly_pay + @borrower.interest 
+            number_with_delimiter(int.round(2), :delimiter => ',')
+           %>
+        </td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;">
+          <%=number_with_delimiter(@borrower.interest.round(2), :delimiter => ',')%>
+        </td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;">
+          <%=number_with_delimiter(@borrower.monthly_pay.round(2), :delimiter => ',')%>
+        </td>
+        <td><%= 
+           num =  @borrower.price_lend 
+            mon = @borrower.monthly_pay * 12
+            bal = @borrower.price_lend - mon 
+            number_with_delimiter(bal.round(2), :delimiter => ',')
+        %></td>
+            <td></td>
+      </tr>
+       <tr><td></td>
+        <td><%= 
+            int = @borrower.interest + @borrower.monthly_pay
+            total = int * 12
+            number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td><%=
+              total = @borrower.interest * 12
+              number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td><%=
+              total = @borrower.monthly_pay * 12
+              number_with_delimiter(total.round(2), :delimiter => ',')
+            %>
+        </td>
+        <td>
+        </td>
+        <td></td>
+      </tr>
+      <%end%> 
+  </tbody>
+  
+</table>
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <style type="text/css">
+            .left-sign {
+                float: left;
+                padding-top: 20px;
+                margin-right:100px
+            }
+            .rigth-date{
+                float: right;
+                padding-top: 20px;
+                margin-right:100px
+            }
+        </style>
+    </head>
+    <body class="bodyBody">
+        <div class="left-sign">
+            <!-- Space for signature. -->
+            <br/>
+            <br/>
+            <br/>
+            <b><%= @borrower.full_name.upcase%></b><br/>
+            <hr>
+            Signature over printed name<br/>
+        </div>
+        <div class="rigth-date">
+            <!-- Space for signature. -->
+            <br/>
+            <br/>
+            <br/>
+            <b></b><br/>
+            <hr>
+            Date / D / M / Y <br/>
+        </div>
+    </body>
+</html>
+
+

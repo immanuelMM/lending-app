@@ -1,0 +1,220 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DATE</th>
+      <th scope="col">TOTAL DUE</th>
+      <th scope="col">INTEREST DUE</th>
+      <th scope="col">PRINCIPAL DUE</th>
+      <th scope="col">SHOULD-BE BALANCE</th>
+      <th scope="col">STATUS</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+          <%= number_with_delimiter(current_user.lend, :delimiter => ',')%>
+          
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <%# <th scope="row"><%= invoice.created_at.strftime('%d/%m/%Y') %></th> 
+        <td><%= current_user.created_at + 1.month %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+            number_with_delimiter(int, :delimiter => ',')
+        %></td>
+          <td><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 
+            bal = current_user.lend - mon 
+            bal.ceil(2)
+        %></td>
+        <td>
+           <%# Status: <span class="<%= @invoice.status_class %>    
+           <%# "> <%= @invoice.status</span> %>
+        </td>
+      </tr>
+      <tr>
+       <td><%= current_user.created_at + 2.month %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+        %></td>
+          <td><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 * 2
+            bal = current_user.lend - mon 
+            bal.ceil(2)
+        %></td>
+        <td></td>
+      </tr>
+       <tr>
+       <td><%= current_user.created_at + 3.month %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+        %></td>
+          <td><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 * 3
+            bal = current_user.lend - mon
+            bal.ceil(2) 
+        %></td>
+        <td></td>
+      </tr>
+       <tr>
+       <td><%= current_user.created_at + 4.month %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+        %></td>
+          <td><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 * 4
+            bal = current_user.lend - mon 
+            bal.ceil(2)
+        %></td>
+        <td></td>
+      </tr>
+       <tr>
+       <td><%= current_user.created_at + 5.month %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+        %></td>
+          <td><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 * 5
+            bal = current_user.lend - mon 
+            bal.ceil(2)
+        %></td>
+        <td></td>
+      </tr>
+       <tr>
+       <td><%= current_user.created_at + 6.month %></td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;"><%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+        %></td>
+          <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;"><%= 
+           num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            int.ceil(2)
+        %></td>
+        <td style="border-bottom-color: #92a8d1; border-bottom-style: solid;"><%= 
+           num =  current_user.lend 
+            mon = num / 6
+        %></td>
+        <td><%= 
+           num =  current_user.lend 
+            mon = num / 6.00 * 6
+            bal = current_user.lend - mon 
+            bal.ceil(2)
+        %></td>
+      <td></td>
+      </tr>
+       <tr>
+        <td>
+        </td>
+        <td>
+           <%= 
+           num =  current_user.lend 
+            mon = num / 6
+            int = mon * 0.20 + mon
+
+            total = int * 6
+            number_with_delimiter(total, :delimiter => ',')
+        %>
+        </td>
+        <td>
+          <%=
+            num =  current_user.lend 
+            ini = num / 6 
+            int = ini * 0.20
+            total = int * 6
+            total.ceil(2)
+            number_with_delimiter(total.ceil(2), :delimiter => ',')
+          %>
+        </td>
+        <td>
+         <%=
+          num =  current_user.lend 
+          mon = num / 6.00
+          total = mon * 6
+
+          number_with_delimiter(total, :delimiter => ',')
+         %>
+        </td>
+        <td>
+        </td>
+        <td></td>
+      </tr>
+  </tbody>
+</table>

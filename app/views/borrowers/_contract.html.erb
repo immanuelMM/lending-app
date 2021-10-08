@@ -1,0 +1,73 @@
+
+<div style="background-color:;padding:20px;margin-top:50px;">
+<div style="text-align:center">
+    <p style="te"><h4>Loan Agreement</h4><p><br>
+    <b>I. Parties</b>
+<div>
+<p>this Loan Agreement ("Agreement") entered into by and between: </p><br>
+<p><%= @borrower.full_name.upcase%> , of legal age, STATUS OF BORROWER, Filipino citizen and with residence and postal address at <%= @borrower.address.upcase%>b, 
+
+hereafter called the 
+Borrower </p>
+
+and <br>
+
+<p>NAME OF LENDER , of legal age, STATUS OF LENDER, Filipino citizen and with residence and postal address at ADDRESS OF LENDER, hereafter called the Lender</p>
+<br>
+<div style="text-align:center">
+    <b><p>II. Effectivity</p></b>
+<div>
+
+<p>This Agreement is effective EFFECTIVITY DATE.</p> <br>
+
+<div style="text-align:center">
+    <b><p>III. Period of Loan</p></b> 
+<div>
+
+<p>This loan shall be payable for a period of____________due on or before __________ </p><br>
+
+<div style="text-align:center">
+    <b><p>IV. Loan Amount The</p></b> 
+<div>
+<p>The Borrower promises to pay the Lender AMOUNT OF LOAN </p><br> 
+
+<div style="text-align:center">
+    <b><p>V. Interest</p></b> 
+<div>
+
+<p>agrees to pay an interest with a fixed amount of AMOUNT OF INTEREST the interest payment shall be payable on or before _____________ together with the Principal amount.</p> <br>
+
+<div style="text-align:center">
+    <b><p>VI. Method of Loan Payment </p></b> 
+<div>
+<p>The Borrower shall make all payments called for under this loan agreement by CASH personally  served to the lender</p> <br>
+
+<div style="text-align:center">
+    <b><p>VII. Non-waiver of right</p></b> 
+<div>
+<p>The failure of either Party to enforce any provision of this
+shall not be construed as a 
+waiver or limitation of any parties right to subsequently enforce and compel strict compliance with 
+ provision of this Agreement. </p> <br>
+        <div class="left-sign">
+            <!-- Space for signature. -->
+            <br/>
+            <br/>
+            <br/>
+            <b><%= @borrower.full_name.upcase%></b><br/>
+            <hr>
+            Signature over printed name<br/>
+        </div>
+        <div class="rigth-date">
+            <!-- Space for signature. -->
+            <br/>
+            <br/>
+            <br/>
+            <b></b><br/>
+            <hr>
+            Date / D / M / Y <br/>
+        </div>
+    </div>
+</div>
+
+

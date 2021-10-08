@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+   <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <%# <i class="far fa-user"></i> %>
+        <span class="m-l-2">
+        <%if user_signed_in? %>
+          <%= current_user.name%> <%=  current_user.surname %></span>
+           <div class="nav-item mx-0 mx-lg-1"> <%= image_tag wicked_pdf_asset_base64('logo9_7_164127.png'), :size => '150x50',class:"logo" %></div>
+          <%else%>
+           <div class="nav-item mx-0 mx-lg-1"> <%= image_tag wicked_pdf_asset_base64('logo9_7_164127.png'), :size => '150x50',class:"logo" %></div>
+          <% end %>
+        <% end %>
+    </ul>
+      <% if action_name.to_sym == :show %>
+        <%= link_to 'Back', root_path, class: "btn btn-outline-secondary mx-2" %>
+        <%= link_to 'DOWNLOAD PDF', borrower_path(::Borrower.find(params[:id]), format: :pdf), class: "btn btn-outline-success my-2 my-sm-0" %>
+      <% end %>
+      <%- if user_signed_in? %>
+        <%= link_to destroy_user_session_path ,class: "btn btn-outline-secondary mx-2", method: :get do %>
+          log out <i class="fas fa-sign-out-alt"></i>              
+        <% end %>
+        <% else %>
+          <%= link_to new_borrower_path,class: "btn btn-outline-secondary mx-2" , method: :delete do %>
+            Loan Form <i class="fas fa-newspaper"></i>
+          <%end%>
+          <%= link_to new_user_session_path,class: "btn btn-outline-secondary mx-2", method: :delete do %>
+            Sign IN  <i class="fas fa-sign-out-alt"></i>
+          <%end%>
+      <% end%>
+    </div>
+  </div>
+</nav>
