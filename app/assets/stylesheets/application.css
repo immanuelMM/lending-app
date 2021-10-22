@@ -16,7 +16,7 @@
 @import 'bootstrap-select';
 @import "bootstrap";
 @import "invoice";
-
+@import "custom/devise_styles.css";
 .logo {
     max-width: 100%;
 }
